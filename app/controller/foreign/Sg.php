@@ -190,7 +190,7 @@ class Sg extends BaseController
                 $statsMap[$stat['bet_id']] = $stat;
             }
             
-            // 三公投注项 (40-48，根据赔率表)
+            // 三公投注项 (根据赔率表: 40, 41, 42, 43, 44, 45, 46, 47, 48)
             $sangong_bet_ids = [40, 41, 42, 43, 44, 45, 46, 47, 48];
             
             // 生成投注数据

@@ -186,7 +186,7 @@ class Lh extends BaseController
                 $statsMap[$stat['bet_id']] = $stat;
             }
             
-            // 龙虎投注项 (20, 21, 22，根据赔率表)
+            // 龙虎投注项 (根据赔率表: 20, 21, 22)
             $longhu_bet_ids = [20, 21, 22];
             
             // 生成投注数据

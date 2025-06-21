@@ -186,8 +186,8 @@ class Bjl extends BaseController
                 $statsMap[$stat['bet_id']] = $stat;
             }
             
-            // 百家乐投注项 (1-12，根据赔率表)
-            $baccarat_bet_ids = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12];
+            // 百家乐投注项 (根据赔率表: 2, 3, 4, 6, 7, 8, 9, 10, 11, 12)
+            $baccarat_bet_ids = [2, 3, 4, 6, 7, 8, 9, 10, 11, 12];
             
             // 生成投注数据
             $data = [];

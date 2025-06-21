@@ -190,7 +190,7 @@ class Nn extends BaseController
                 $statsMap[$stat['bet_id']] = $stat;
             }
             
-            // 牛牛投注项 (30-38，根据赔率表)
+            // 牛牛投注项 (根据赔率表: 30, 31, 32, 33, 34, 35, 36, 37, 38)
             $niuniu_bet_ids = [30, 31, 32, 33, 34, 35, 36, 37, 38];
             
             // 生成投注数据

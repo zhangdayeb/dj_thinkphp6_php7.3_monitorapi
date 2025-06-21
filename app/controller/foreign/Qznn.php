@@ -27,9 +27,9 @@ class Qznn extends BaseController
             if ($page < 1) $page = 1;
             if ($pageSize < 1 || $pageSize > 200) $pageSize = 50;
             
-            // 构建查询条件 - 抢庄牛牛暂时使用game_type=6，实际可能需要调整
+            // 构建查询条件
             $where = [
-                ['r.game_type', '=', 7],           // 抢庄牛牛游戏 (假设game_type=7)
+                ['r.game_type', '=', 5],           // 抢庄牛牛游戏
                 ['r.close_status', '=', 1],        // 当局数据
                 ['u.is_fictitious', '=', 0]        // 排除虚拟用户
             ];
@@ -105,7 +105,7 @@ class Qznn extends BaseController
             
             // 构建查询条件
             $where = [
-                ['r.game_type', '=', 7],           // 抢庄牛牛游戏
+                ['r.game_type', '=', 5],           // 抢庄牛牛游戏
                 ['r.close_status', '=', 1],        // 当局数据
                 ['u.is_fictitious', '=', 0]        // 排除虚拟用户
             ];
@@ -158,7 +158,7 @@ class Qznn extends BaseController
             
             // 构建查询条件
             $where = [
-                ['r.game_type', '=', 7],           // 抢庄牛牛游戏
+                ['r.game_type', '=', 5],           // 抢庄牛牛游戏
                 ['r.close_status', '=', 1],        // 当局数据
                 ['u.is_fictitious', '=', 0]        // 排除虚拟用户
             ];
@@ -190,33 +190,23 @@ class Qznn extends BaseController
                 $statsMap[$stat['bet_id']] = $stat;
             }
             
-            // 抢庄牛牛投注项 (与牛牛相同的投注区域，但可能有不同的game_type)
-            // 根据实际业务需求调整投注项ID范围
-            $qznn_bet_ids = [];
-            
-            // 如果有具体的投注项配置，使用具体ID
-            // 这里假设使用动态查询已有的投注项
-            if (empty($qznn_bet_ids)) {
-                foreach ($statsMap as $betId => $stat) {
-                    $qznn_bet_ids[] = $betId;
-                }
-                sort($qznn_bet_ids);
-            }
-            
-            // 生成投注数据
+            // 抢庄牛牛需要查询实际存在的投注项，因为赔率表中没有game_type_id=7的数据
+            // 如果没有预定义的投注项，使用动态查询
             $data = [];
-            foreach ($qznn_bet_ids as $betId) {
-                if (isset($statsMap[$betId])) {
-                    $stat = $statsMap[$betId];
-                    $data[] = [
-                        'betId' => (int)$betId,
-                        'betCount' => (int)$stat['bet_count'],
-                        'totalAmount' => sprintf('%.2f', $stat['total_amount']),
-                        'totalDepositAmount' => sprintf('%.2f', $stat['total_deposit_amount'] ?: 0),
-                        'userCount' => (int)$stat['user_count']
-                    ];
-                }
+            foreach ($statsMap as $betId => $stat) {
+                $data[] = [
+                    'betId' => (int)$betId,
+                    'betCount' => (int)$stat['bet_count'],
+                    'totalAmount' => sprintf('%.2f', $stat['total_amount']),
+                    'totalDepositAmount' => sprintf('%.2f', $stat['total_deposit_amount'] ?: 0),
+                    'userCount' => (int)$stat['user_count']
+                ];
             }
+            
+            // 按betId排序
+            usort($data, function($a, $b) {
+                return $a['betId'] - $b['betId'];
+            });
             
             return show([
                 'data' => $data,
