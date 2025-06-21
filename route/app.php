@@ -10,3 +10,4 @@ Route::rule('foreign/table/list$', '/foreign.Dashboard/get_table_list');
 Route::rule('foreign/sicbo/records$', '/foreign.Sicbo/records');
 Route::rule('foreign/sicbo/overview$', '/foreign.Sicbo/overview');
 Route::rule('foreign/sicbo/bet-stats$', '/foreign.Sicbo/betStats');
+Route::rule('foreign/sicbo/tables$', '/foreign.Sicbo/getTables');    // 桌子列表
