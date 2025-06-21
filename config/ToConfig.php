@@ -8,10 +8,5 @@ return [
     'http_code'=>[ //返回code
         'error'=>0,
         'success'=>200,
-    ],
-    'app_update' => [
-        'image_url' => 'https://authapi.wan888.club/storage',//上传文件域名 图片视频等
-        'app_qrcode' => 'https://authapi.wan888.club/',//二维码地址
-        'hg_image_url' => 'https://resapi.wosb8.vip/',//荷官头像
-    ],
+    ]
 ];
